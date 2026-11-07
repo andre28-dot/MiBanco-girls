@@ -1,0 +1,182 @@
+[
+ {
+  "id": 1,
+  "titular": "Ana Martínez",
+  "estado": "activa",
+  "saldo": 1500.5
+ },
+ {
+  "id": 2,
+  "titular": "Carlos Hernández",
+  "estado": "activa",
+  "saldo": 320.0
+ },
+ {
+  "id": 3,
+  "titular": "María López",
+  "estado": "inactiva",
+  "saldo": 2750.75
+ },
+ {
+  "id": 4,
+  "titular": "José Ramírez",
+  "estado": "activa",
+  "saldo": 50.0
+ },
+ {
+  "id": 5,
+  "titular": "Lucía Fuentes",
+  "estado": "inactiva",
+  "saldo": 980.0
+ },
+ {
+  "id": 6,
+  "titular": "Pedro Alvarado",
+  "estado": "activa",
+  "saldo": 12000.0
+ },
+ {
+  "id": 7,
+  "titular": "Sofía Menjívar",
+  "estado": "activa",
+  "saldo": 845.3
+ },
+ {
+  "id": 8,
+  "titular": "Luis Alberto Portillo",
+  "estado": "activa",
+  "saldo": 2210.0
+ },
+ {
+  "id": 9,
+  "titular": "Karla Guevara",
+  "estado": "inactiva",
+  "saldo": 75.25
+ },
+ {
+  "id": 10,
+  "titular": "Walter Cáceres",
+  "estado": "activa",
+  "saldo": 5400.9
+ },
+ {
+  "id": 11,
+  "titular": "Daniela Rivas",
+  "estado": "activa",
+  "saldo": 1320.1
+ },
+ {
+  "id": 12,
+  "titular": "Mauricio Flores",
+  "estado": "inactiva",
+  "saldo": 430.0
+ },
+ {
+  "id": 13,
+  "titular": "Gabriela Orellana",
+  "estado": "activa",
+  "saldo": 9800.0
+ },
+ {
+  "id": 14,
+  "titular": "Roberto Chicas",
+  "estado": "activa",
+  "saldo": 615.75
+ },
+ {
+  "id": 15,
+  "titular": "Fátima Benítez",
+  "estado": "inactiva",
+  "saldo": 3300.4
+ },
+ {
+  "id": 16,
+  "titular": "Ernesto Villalta",
+  "estado": "activa",
+  "saldo": 150.0
+ },
+ {
+  "id": 17,
+  "titular": "Yesenia Amaya",
+  "estado": "activa",
+  "saldo": 2875.6
+ },
+ {
+  "id": 18,
+  "titular": "Oscar Majano",
+  "estado": "inactiva",
+  "saldo": 18.9
+ },
+ {
+  "id": 19,
+  "titular": "Claudia Escobar",
+  "estado": "activa",
+  "saldo": 7420.0
+ },
+ {
+  "id": 20,
+  "titular": "Rafael Zelaya",
+  "estado": "activa",
+  "saldo": 1099.99
+ },
+ {
+  "id": 21,
+  "titular": "Verónica Argueta",
+  "estado": "inactiva",
+  "saldo": 560.0
+ },
+ {
+  "id": 22,
+  "titular": "Héctor Mejía",
+  "estado": "activa",
+  "saldo": 4350.25
+ },
+ {
+  "id": 23,
+  "titular": "Alejandra Quintanilla",
+  "estado": "activa",
+  "saldo": 260.4
+ },
+ {
+  "id": 24,
+  "titular": "Joaquín Sandoval",
+  "estado": "inactiva",
+  "saldo": 8120.0
+ },
+ {
+  "id": 25,
+  "titular": "Marcela Navarrete",
+  "estado": "activa",
+  "saldo": 1740.0
+ },
+ {
+  "id": 26,
+  "titular": "Douglas Rodríguez",
+  "estado": "activa",
+  "saldo": 35.5
+ },
+ {
+  "id": 27,
+  "titular": "Patricia Cruz",
+  "estado": "activa",
+  "saldo": 6205.8
+ },
+ {
+  "id": 28,
+  "titular": "Néstor Henríquez",
+  "estado": "inactiva",
+  "saldo": 990.99
+ },
+ {
+  "id": 29,
+  "titular": "Brenda Carranza",
+  "estado": "activa",
+  "saldo": 2480.0
+ },
+ {
+  "id": 30,
+  "titular": "Iván Molina",
+  "estado": "activa",
+  "saldo": 705.15
+ }
+]

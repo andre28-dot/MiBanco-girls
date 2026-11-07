@@ -1,0 +1,12 @@
+{
+  "name": "cajero-virtual-univo",
+  "version": "1.0.0",
+  "description": "Cajero virtual educativo - Programación Estructurada - UNIVO",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

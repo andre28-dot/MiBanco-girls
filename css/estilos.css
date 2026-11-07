@@ -1,0 +1,104 @@
+/* ===== Identidad UNIVO ===== */
+:root{
+  --azul:#103B5C;      /* azul profundo: navegación y acciones principales */
+  --marino:#092D49;    /* azul oscuro: texto sobre dorado, títulos */
+  --dorado:#F3B51B;    /* acento institucional */
+  --fondo:#F7F8FA;     /* gris perla */
+  --grafito:#243447;   /* azul grafito */
+  --borde:#DCE5ED;     /* azul grisáceo */
+  --gris:#3E5167;      /* texto secundario legible (grafito suavizado) */
+  --verde:#198754;--rojo:#DC3545;
+  --bs-body-font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --bs-secondary-color:var(--gris);
+}
+body{background:var(--fondo);color:var(--grafito);overflow-x:hidden}
+.text-secondary{color:var(--gris)!important}
+.text-primary{color:var(--azul)!important}
+
+/* ===== SIDEBAR: fondo azul sólido =====
+   Bootstrap pone background transparent !important a .offcanvas-lg en escritorio,
+   por eso se fuerza aquí con mayor especificidad. */
+.sidebar.offcanvas-lg{
+  --bs-offcanvas-bg:var(--azul);--bs-offcanvas-color:#fff;--bs-offcanvas-width:280px;
+  background-color:var(--azul)!important;color:#fff;border:0!important;
+}
+.sidebar .offcanvas-body{padding:0;overflow-y:auto}
+.marca{position:relative;padding:1.75rem 1.25rem 1.5rem;text-align:center}
+.marca::after{content:"";display:block;width:44px;height:3px;background:var(--dorado);border-radius:2px;margin:1.1rem auto 0}
+.marca img{width:92px;height:auto}
+.marca h6{margin:.9rem 0 .15rem;font-weight:700;letter-spacing:.08em;font-size:.95rem;color:#fff}
+.marca small{color:#D3E0EB;font-size:.75rem}
+.marca .btn-close{position:absolute;top:.75rem;right:.75rem}
+.menu{padding:.5rem .85rem 1.5rem;gap:.35rem!important}
+.menu .nav-link{
+  display:flex;align-items:center;gap:.8rem;width:100%;padding:.8rem 1rem;border:0;border-radius:.65rem;
+  background:transparent;color:#fff;font-size:.95rem;font-weight:500;text-align:left;
+  transition:background-color .15s ease,color .15s ease;
+}
+.menu .nav-link i{color:#fff;font-size:1.15rem;width:1.3rem;text-align:center}
+.menu .nav-link:hover{background:#1D5784;color:#fff}
+.menu .nav-link:focus-visible{outline:2px solid var(--dorado);outline-offset:2px;background:#1D5784;color:#fff}
+/* Estado activo: dorado + texto/icono azul oscuro + barra e indicador de flecha */
+.menu .nav-link.activo,.menu .nav-link.activo:hover{
+  background:var(--dorado);color:var(--marino);font-weight:700;box-shadow:inset 5px 0 0 var(--marino);
+}
+.menu .nav-link.activo i{color:var(--marino)}
+.menu .nav-link.activo::after{content:"\F285";font-family:"bootstrap-icons";margin-left:auto;color:var(--marino);font-size:.85rem}
+@media(min-width:992px){
+  .sidebar.offcanvas-lg{position:fixed;inset:0 auto 0 0;width:260px!important;height:100%!important;z-index:1030}
+  .contenido{margin-left:260px}
+}
+
+/* ===== ENCABEZADO ===== */
+.topbar{background:#fff;border-bottom:1px solid var(--borde);position:sticky;top:0;z-index:1020}
+.topbar h1{font-size:1.25rem;font-weight:700;color:var(--azul);margin:0}
+.fecha{color:var(--grafito);font-size:.82rem;text-transform:capitalize}
+.topbar .badge{color:var(--azul)!important;background:#fff!important;border:1px solid var(--borde)!important;font-weight:600}
+main{padding:1.25rem;max-width:1200px;margin:auto}
+@media(min-width:768px){main{padding:1.75rem 2rem}}
+
+/* ===== TARJETAS ===== */
+.tarjeta{background:#fff;border:1px solid var(--borde);border-radius:.8rem;box-shadow:0 1px 3px rgba(9,45,73,.08)}
+.tarjeta h2.h6{color:var(--azul)!important;letter-spacing:.05em}
+.hero{background:var(--azul);color:#fff;border-radius:.8rem;border-bottom:4px solid var(--dorado)}
+.hero img{width:84px;height:84px}
+.kpi{padding:1rem 1.1rem}
+.kpi .etq{color:var(--gris);font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.kpi .val{font-size:1.5rem;font-weight:700;color:var(--azul)}
+.kpi .ico{width:42px;height:42px;border-radius:.6rem;display:grid;place-items:center;background:var(--borde);color:var(--azul);font-size:1.2rem}
+.kpi.dep .ico{background:#DDF1E6;color:var(--verde)}.kpi.dep .val{color:var(--verde)}
+.kpi.ret .ico{background:#FBE3E6;color:var(--rojo)}.kpi.ret .val{color:var(--rojo)}
+.op-dep{border-top:4px solid var(--verde)}.op-ret{border-top:4px solid var(--rojo)}
+
+/* ===== BOTONES ===== */
+.btn{min-height:42px;font-weight:500;transition:background-color .15s,border-color .15s,color .15s}
+.btn:focus-visible{outline:0;box-shadow:0 0 0 .2rem rgba(243,181,27,.55)}
+.btn-univo{background:var(--azul);color:#fff;border:1px solid var(--azul)}
+.btn-univo:hover,.btn-univo:active{background:var(--marino);border-color:var(--marino);color:#fff}
+.btn-oro{background:var(--dorado);color:var(--marino);font-weight:700;border:1px solid var(--dorado)}
+.btn-oro:hover{background:#DDA20F;border-color:#DDA20F;color:var(--marino)}
+.btn-outline-primary,.btn-outline-secondary{
+  --bs-btn-color:var(--azul);--bs-btn-border-color:var(--azul);--bs-btn-hover-bg:var(--azul);--bs-btn-hover-border-color:var(--azul);
+  --bs-btn-hover-color:#fff;--bs-btn-active-bg:var(--marino);--bs-btn-active-border-color:var(--marino);--bs-btn-active-color:#fff;
+}
+.btn-sm{min-height:36px}
+
+/* ===== TABLAS ===== */
+.table-responsive{border:1px solid var(--borde);border-radius:.6rem}
+.table{--bs-table-bg:#fff;--bs-table-hover-bg:#EEF3F8;--bs-table-border-color:var(--borde);color:var(--grafito);margin-bottom:0}
+.table thead th{background:var(--azul);color:#fff;font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;border:0;padding:.8rem .75rem;white-space:nowrap}
+.table td{vertical-align:middle;padding:.7rem .75rem}
+.b-activa,.b-deposito{background:#DDF1E6;color:#0F6A3F}
+.b-inactiva{background:#E6EBF1;color:var(--grafito)}
+.b-retiro{background:#FBE3E6;color:#A71D2A}
+.badge{font-weight:600}
+.m-dep{color:#0F6A3F;font-weight:600}.m-ret{color:#B02A37;font-weight:600}
+.vacio{text-align:center;color:var(--gris);padding:2.5rem 1rem}
+.vacio i{font-size:2.2rem;color:var(--azul);opacity:.45;display:block;margin-bottom:.5rem}
+
+/* ===== FORMULARIOS ===== */
+.form-label{color:var(--azul);font-weight:600;font-size:.88rem}
+.form-control,.form-select{background:#fff;border:1px solid #B9C9D8;color:var(--grafito);min-height:44px}
+.form-control::placeholder{color:#6B7C8F}
+.form-control:focus,.form-select:focus{border-color:var(--dorado);box-shadow:0 0 0 .2rem rgba(243,181,27,.35)}
+.input-group-text{background:var(--borde);border:1px solid #B9C9D8;color:var(--azul)}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cajero Virtual UNIVO</title>
+  <link rel="icon" href="assets/escudo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<!-- MENÚ LATERAL (offcanvas en pantallas pequeñas) -->
+<aside class="offcanvas-lg offcanvas-start sidebar" id="menu" tabindex="-1">
+  <div class="offcanvas-body d-block">
+    <div class="marca">
+      <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#menu" aria-label="Cerrar menú"></button>
+      <img src="assets/escudo.png" alt="Escudo de la Universidad de Oriente (UNIVO)">
+      <h6>CAJERO VIRTUAL</h6><small>Universidad de Oriente · UNIVO</small>
+    </div>
+    <nav class="menu nav flex-column gap-1">
+      <button class="nav-link activo" data-seccion="inicio"><i class="bi bi-house-door"></i>Inicio</button>
+      <button class="nav-link" data-seccion="cuentas"><i class="bi bi-people"></i>Cuentas bancarias</button>
+      <button class="nav-link" data-seccion="depositos"><i class="bi bi-box-arrow-in-down"></i>Depósitos</button>
+      <button class="nav-link" data-seccion="retiros"><i class="bi bi-box-arrow-up"></i>Retiros</button>
+      <button class="nav-link" data-seccion="movimientos"><i class="bi bi-clock-history"></i>Movimientos</button>
+      <button class="nav-link" data-seccion="resumen"><i class="bi bi-pie-chart"></i>Resumen de operaciones</button>
+    </nav>
+  </div>
+</aside>
+
+<div class="contenido">
+  <header class="topbar px-3 px-md-4 py-3 d-flex align-items-center gap-3">
+    <button class="btn btn-outline-secondary d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-label="Abrir menú"><i class="bi bi-list"></i></button>
+    <div class="me-auto">
+      <h1 id="titulo-seccion">Inicio</h1>
+      <div class="fecha" id="fecha"></div>
+    </div>
+    <span class="badge text-bg-light border d-none d-md-inline">Sistema de Gestión de Operaciones Bancarias</span>
+    <button class="btn btn-sm btn-univo" data-seccion="inicio"><i class="bi bi-house-door"></i><span class="d-none d-sm-inline"> Inicio</span></button>
+  </header>
+
+  <main>
+    <!-- ============ INICIO ============ -->
+    <section id="sec-inicio" class="seccion">
+      <div class="hero p-4 mb-4 d-flex flex-column flex-md-row align-items-center gap-4">
+        <img src="assets/escudo.png" alt="Escudo UNIVO">
+        <div class="text-center text-md-start">
+          <div class="text-warning small fw-semibold">BIENVENIDO</div>
+          <h2 class="h3 fw-bold mb-1">CAJERO VIRTUAL UNIVO</h2>
+          <div class="fw-medium">Sistema de Gestión de Operaciones Bancarias</div>
+          <p class="mb-0 mt-2 small opacity-75">Práctica de Programación Estructurada. Plataforma educativa con cuentas y datos completamente ficticios.</p>
+        </div>
+      </div>
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-lg"><div class="tarjeta kpi d-flex gap-3 align-items-center"><div class="ico"><i class="bi bi-people"></i></div><div><div class="etq">Cuentas</div><div class="val" id="k-total">0</div></div></div></div>
+        <div class="col-6 col-lg"><div class="tarjeta kpi d-flex gap-3 align-items-center"><div class="ico"><i class="bi bi-check-circle"></i></div><div><div class="etq">Activas</div><div class="val" id="k-activas">0</div></div></div></div>
+        <div class="col-6 col-lg"><div class="tarjeta kpi d-flex gap-3 align-items-center"><div class="ico"><i class="bi bi-slash-circle"></i></div><div><div class="etq">Inactivas</div><div class="val" id="k-inactivas">0</div></div></div></div>
+        <div class="col-6 col-lg"><div class="tarjeta kpi dep d-flex gap-3 align-items-center"><div class="ico"><i class="bi bi-arrow-down-circle"></i></div><div><div class="etq">Depositado</div><div class="val" id="k-dep">$0.00</div></div></div></div>
+        <div class="col-12 col-lg"><div class="tarjeta kpi ret d-flex gap-3 align-items-center"><div class="ico"><i class="bi bi-arrow-up-circle"></i></div><div><div class="etq">Retirado</div><div class="val" id="k-ret">$0.00</div></div></div></div>
+      </div>
+      <div class="row g-3">
+        <div class="col-lg-5"><div class="tarjeta p-3 h-100">
+          <h2 class="h6 fw-bold text-uppercase text-secondary mb-3">Cuenta seleccionada</h2>
+          <div id="inicio-cuenta"></div>
+        </div></div>
+        <div class="col-lg-7"><div class="tarjeta p-3 h-100">
+          <h2 class="h6 fw-bold text-uppercase text-secondary mb-3">Últimos movimientos</h2>
+          <div class="table-responsive"><table class="table table-hover mb-0"><thead><tr><th>Tipo</th><th>Titular</th><th class="text-end">Monto</th><th>Fecha</th></tr></thead><tbody id="inicio-ultimos"></tbody></table></div>
+          <div id="vacio-ultimos" class="vacio d-none"><i class="bi bi-inbox"></i>Aún no hay operaciones en esta sesión.</div>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- ============ CUENTAS ============ -->
+    <section id="sec-cuentas" class="seccion d-none">
+      <p class="text-secondary">Consulte y filtre las cuentas registradas. Seleccione una para operar con ella.</p>
+      <div class="tarjeta p-3">
+        <div class="row g-2 mb-3">
+          <div class="col-md-8"><div class="input-group"><span class="input-group-text"><i class="bi bi-search"></i></span><input type="text" id="busqueda" class="form-control" placeholder="Buscar por nombre del titular" aria-label="Buscar por titular"></div></div>
+          <div class="col-md-4"><select id="filtro-estado" class="form-select" aria-label="Filtrar por estado"><option value="todas">Todas</option><option value="activa">Activas</option><option value="inactiva">Inactivas</option></select></div>
+        </div>
+        <div id="carga" class="text-center py-4"><div class="spinner-border text-primary" role="status"></div><div class="small text-secondary mt-2">Cargando cuentas…</div></div>
+        <div class="table-responsive"><table class="table table-hover align-middle mb-0" id="tabla-cuentas"><thead><tr><th>ID</th><th>Titular</th><th>Estado</th><th class="text-end">Saldo</th><th class="text-end">Acción</th></tr></thead><tbody></tbody></table></div>
+        <div id="vacio-cuentas" class="vacio d-none"><i class="bi bi-search"></i>No se encontraron cuentas con esos criterios.</div>
+      </div>
+    </section>
+
+    <!-- ============ DEPÓSITOS ============ -->
+    <section id="sec-depositos" class="seccion d-none">
+      <div class="tarjeta op-dep p-4 mx-auto" style="max-width:640px">
+        <h2 class="h5 fw-bold text-success"><i class="bi bi-box-arrow-in-down"></i> Depósito de dinero</h2>
+        <p class="text-secondary small">Operación de ingreso: el monto se suma al saldo de la cuenta.</p>
+        <div id="dep-info" class="mb-3"></div>
+        <form id="form-dep" novalidate>
+          <label class="form-label" for="dep-id">ID de la cuenta</label>
+          <input type="text" inputmode="numeric" id="dep-id" class="form-control mb-3">
+          <label class="form-label" for="dep-monto">Monto a depositar (USD)</label>
+          <div class="input-group mb-3"><span class="input-group-text">$</span><input type="text" inputmode="decimal" id="dep-monto" class="form-control" placeholder="0.00"></div>
+          <button type="submit" class="btn btn-success w-100"><i class="bi bi-check2-circle"></i> Confirmar depósito</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ RETIROS ============ -->
+    <section id="sec-retiros" class="seccion d-none">
+      <div class="tarjeta op-ret p-4 mx-auto" style="max-width:640px">
+        <h2 class="h5 fw-bold text-danger"><i class="bi bi-box-arrow-up"></i> Retiro de dinero</h2>
+        <p class="text-secondary small">Operación de salida: el monto se descuenta del saldo disponible.</p>
+        <div id="ret-info" class="mb-3"></div>
+        <form id="form-ret" novalidate>
+          <label class="form-label" for="ret-id">ID de la cuenta</label>
+          <input type="text" inputmode="numeric" id="ret-id" class="form-control mb-3">
+          <label class="form-label" for="ret-monto">Monto a retirar (USD)</label>
+          <div class="input-group mb-3"><span class="input-group-text">$</span><input type="text" inputmode="decimal" id="ret-monto" class="form-control" placeholder="0.00"></div>
+          <button type="submit" class="btn btn-danger w-100"><i class="bi bi-check2-circle"></i> Confirmar retiro</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ MOVIMIENTOS ============ -->
+    <section id="sec-movimientos" class="seccion d-none">
+      <div class="tarjeta p-3">
+        <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
+          <div id="mov-info" class="small text-secondary"></div>
+          <div class="btn-group" id="filtros-tipo" role="group" aria-label="Filtrar por tipo">
+            <button class="btn btn-sm btn-univo" data-tipo="todos">Todos</button>
+            <button class="btn btn-sm btn-outline-secondary" data-tipo="deposito">Depósitos</button>
+            <button class="btn btn-sm btn-outline-secondary" data-tipo="retiro">Retiros</button>
+          </div>
+        </div>
+        <div class="table-responsive"><table class="table table-hover align-middle mb-0" id="tabla-historial"><thead><tr><th>ID</th><th>Titular</th><th>Cuenta</th><th>Tipo</th><th class="text-end">Monto</th><th>Fecha</th></tr></thead><tbody></tbody></table></div>
+        <div id="vacio-historial" class="vacio"><i class="bi bi-inbox"></i><span id="texto-vacio-historial"></span></div>
+      </div>
+    </section>
+
+    <!-- ============ RESUMEN ============ -->
+    <section id="sec-resumen" class="seccion d-none">
+      <div id="res-vacio" class="tarjeta vacio d-none"><i class="bi bi-pie-chart"></i>Seleccione una cuenta en «Cuentas bancarias» para ver su resumen.</div>
+      <div id="res-contenido">
+        <p class="text-secondary" id="res-titular"></p>
+        <div class="row g-3 mb-3">
+          <div class="col-6 col-lg-3"><div class="tarjeta kpi dep"><div class="etq">Total depositado</div><div class="val" id="res-dep">$0.00</div></div></div>
+          <div class="col-6 col-lg-3"><div class="tarjeta kpi ret"><div class="etq">Total retirado</div><div class="val" id="res-ret">$0.00</div></div></div>
+          <div class="col-6 col-lg-3"><div class="tarjeta kpi"><div class="etq">Movimientos</div><div class="val" id="res-cant">0</div></div></div>
+          <div class="col-6 col-lg-3"><div class="tarjeta kpi"><div class="etq">Saldo actual</div><div class="val" id="res-saldo">$0.00</div></div></div>
+        </div>
+        <div class="tarjeta p-3">
+          <div class="small text-secondary mb-2">Proporción depósitos / retiros</div>
+          <div class="progress" style="height:14px"><div id="res-barra-dep" class="progress-bar bg-success" style="width:0"></div><div id="res-barra-ret" class="progress-bar bg-danger" style="width:0"></div></div>
+          <div id="res-barra-txt" class="small text-secondary mt-2">Sin operaciones registradas.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3" id="toasts" style="z-index:2000"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="dist/main.js"></script>
+</body>
+</html>
