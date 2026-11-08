@@ -1,30 +1,27 @@
-
-// Importamos los tipos que vamos a utilizar en este archivo.
+// Importamos los tipos que necesitamos para trabajar con las cuentas.
 import { Cuenta, FiltroEstado } from "./tipos.js";
 
-// Esta función sirve para buscar una cuenta por el nombre de su titular.
-// También permite buscar solo una parte del nombre.
-// Usamos toLowerCase() para que no importe si escribimos mayúsculas o minúsculas.
+// Esta función permite buscar cuentas escribiendo el nombre completo
+// o solamente una parte del nombre del titular.
 export function buscarCuentasPorTitular(lista: Cuenta[], texto: string): Cuenta[] {
 
-  // Quitamos los espacios que sobren y convertimos el texto a minúsculas.
+  // Quitamos los espacios innecesarios y convertimos el texto a minúsculas.
   const textoBuscado = texto.trim().toLowerCase();
 
-  // Recorremos la lista y devolvemos las cuentas que coincidan con el nombre buscado.
-  // El método filter() crea una nueva lista sin modificar la original.
+  // Buscamos las cuentas que coincidan con el nombre que escribimos.
   return lista.filter((cuenta) =>
     cuenta.titular.toLowerCase().includes(textoBuscado)
   );
 }
 
-// Esta función nos permite mostrar las cuentas según el estado que seleccionemos.
+// Esta función permite mostrar las cuentas según el estado que seleccionemos.
 export function filtrarCuentasPorEstado(lista: Cuenta[], filtro: FiltroEstado): Cuenta[] {
 
-  // Si seleccionamos "todas", mostramos la lista completa de cuentas.
+  // Si seleccionamos "todas", mostramos todas las cuentas registradas.
   if (filtro === "todas") {
     return lista;
   }
 
-  // Si seleccionamos otro estado, mostramos solamente las cuentas que coincidan.
+  // Si elegimos un estado, mostramos solamente las cuentas que coincidan.
   return lista.filter((cuenta) => cuenta.estado === filtro);
 }

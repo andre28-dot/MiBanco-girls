@@ -1,22 +1,22 @@
 // ===== Consulta de cuentas =====
 
-// Importamos el tipo Cuenta para trabajar con los datos de las cuentas.
+// Importamos el tipo Cuenta para trabajar con la información de las cuentas.
 import { Cuenta } from "./tipos.js";
 
-// Importamos el arreglo donde están guardadas las cuentas.
+// Importamos la lista donde tenemos guardadas las cuentas.
 import { cuentas } from "./estado.js";
 
-// Esta función nos permite obtener todas las cuentas que están registradas.
+// Esta función nos permite consultar todas las cuentas registradas.
 export function obtenerCuentas(): Cuenta[] {
 
-  // Devolvemos la lista completa de cuentas.
+  // Devolvemos todas las cuentas que tenemos guardadas.
   return cuentas;
 }
 
-// Esta función sirve para buscar una cuenta utilizando su número de identificación.
+// Esta función busca una cuenta por medio de su número de ID.
 export function buscarCuentaPorId(id: number): Cuenta | undefined {
 
-  // Recorremos las cuentas hasta encontrar una que tenga el mismo ID.
-  // Si la encontramos, devolvemos esa cuenta; si no, devuelve undefined.
+  // Revisamos la lista hasta encontrar una cuenta con el ID indicado.
+  // Si no la encontramos, devuelve undefined.
   return cuentas.find((cuenta) => cuenta.id === id);
 }

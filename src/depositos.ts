@@ -1,37 +1,36 @@
 // ===== Depósitos =====
 
-// Importamos el tipo que nos permite indicar el resultado de la operación.
+// Importamos el tipo para indicar si el depósito se realizó correctamente.
 import { ResultadoOperacion } from "./tipos.js";
 
-// Importamos las funciones que utilizamos para validar y redondear los montos.
+// Importamos las funciones que revisan los datos y ajustan los decimales.
 import { validarOperacion, redondearADosDecimales } from "./validaciones.js";
 
-// Importamos la función que guarda los movimientos realizados en la cuenta.
+// Importamos la función que guarda los depósitos en el historial.
 import { registrarMovimiento } from "./historial.js";
 
-// Esta función permite realizar un depósito en una cuenta.
+// Esta función se encarga de ingresar dinero a una cuenta.
 export function depositar(cuentaId: number, monto: number): ResultadoOperacion {
 
-  // Primero verificamos que la cuenta exista y que el monto sea válido.
+  // Verificamos que la cuenta exista y que el monto sea correcto.
   const validacion = validarOperacion(cuentaId, monto);
 
-  // Si la validación falla o no encontramos la cuenta, mostramos el mensaje de error.
+  // Si hay algún error, detenemos el depósito y devolvemos el mensaje.
   if (!validacion.exito || validacion.cuenta === null) {
     return { exito: false, mensaje: validacion.mensaje };
   }
 
-  // Obtenemos la cuenta que pasó correctamente la validación.
+  // Guardamos la cuenta que vamos a utilizar.
   const cuenta = validacion.cuenta;
 
-  // Sumamos el monto depositado al saldo actual de la cuenta.
-  // También redondeamos el resultado a dos decimales.
+  // Sumamos el dinero depositado al saldo que ya tenía la cuenta.
+  // Dejamos el resultado con dos decimales.
   cuenta.saldo = redondearADosDecimales(cuenta.saldo + monto);
 
-  // Guardamos el depósito en el historial de movimientos de la cuenta.
+  // Registramos el depósito para que quede guardado en el historial.
   registrarMovimiento(cuenta.id, "deposito", monto);
 
-  // Devolvemos un mensaje indicando que el depósito se realizó correctamente
-  // y mostramos el nuevo saldo disponible.
+  // Mostramos un mensaje confirmando el depósito y el nuevo saldo.
   return {
     exito: true,
     mensaje: `Depósito de $${monto.toFixed(2)} realizado. Nuevo saldo: $${cuenta.saldo.toFixed(2)}.`,
