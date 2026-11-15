@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tu Cajero Virtual</title>
+  <link rel="icon" href="/img/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5.3.3 (solo CSS: se usa para la rejilla y utilidades; no se usa su JavaScript) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/estilos.css">
+</head>
+<body>
+
+  <!-- ENCABEZADO DEL SITIO: único h1 de toda la página -->
+  <header class="cabecera-sitio">
+    <button type="button" class="btn-menu" id="boton-menu" aria-controls="menu-principal" aria-expanded="false" hidden>☰ Menú</button>
+    <img class="logo" src="/img/logo.png" alt="Logo de Tu Cajero Virtual">
+    <div class="cabecera-titulos">
+      <h1>Tu Cajero Virtual</h1>
+      <p>Sistema de Gestión de Operaciones Bancarias · Universidad de Oriente (UNIVO)</p>
+    </div>
+    <div class="cabecera-sesion" id="cabecera-sesion" hidden>
+      <p id="texto-sesion"></p>
+      <button type="button" class="btn-cerrar-sesion" id="boton-cerrar-sesion">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <div class="cuerpo">
+
+    <!-- MENÚ DE NAVEGACIÓN (solo visible con sesión abierta) -->
+    <nav class="menu" id="menu-principal" aria-label="Menú principal" hidden>
+      <ul id="menu-cliente" hidden>
+        <li><button type="button" class="btn-nav" data-seccion="sec-cliente-inicio">Mi cuenta</button></li>
+        <li><button type="button" class="btn-nav" data-seccion="sec-depositar">Depósitos</button></li>
+        <li><button type="button" class="btn-nav" data-seccion="sec-retirar">Retiros</button></li>
+        <li><button type="button" class="btn-nav" data-seccion="sec-movimientos">Movimientos</button></li>
+        <li><button type="button" class="btn-nav" data-seccion="sec-resumen">Resumen de operaciones</button></li>
+      </ul>
+      <ul id="menu-admin" hidden>
+        <li><button type="button" class="btn-nav" data-seccion="sec-admin-cuentas">Cuentas registradas</button></li>
+        <li><button type="button" class="btn-nav" data-seccion="sec-admin-formulario">Registrar cuenta</button></li>
+        <li><button type="button" class="btn-nav" data-seccion="sec-admin-historial">Historial general</button></li>
+        <li><button type="button" class="btn-nav" data-seccion="sec-admin-totales">Totales</button></li>
+      </ul>
+    </nav>
+
+    <main class="principal">
+
+      <!-- ============ ACCESO ============ -->
+      <section class="seccion" id="sec-acceso">
+        <div class="acceso">
+          <div class="row g-0">
+            <!-- Zona decorativa (solo adorno visual) -->
+            <div class="col-lg-5">
+              <div class="acceso-decor" aria-hidden="true">
+                <img class="logo-grande" src="/img/logo.png" alt="">
+                <p class="decor-nombre">Tu Cajero Virtual</p>
+                <p class="decor-texto">Sistema de Gestión de Operaciones Bancarias</p>
+                <div class="tarjeta-decorativa"><span class="tarjeta-nombre">Tu Cajero Virtual</span></div>
+              </div>
+            </div>
+            <!-- Formularios -->
+            <div class="col-lg-7">
+              <div class="acceso-formularios">
+                <h2>Ingreso al sistema</h2>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <article class="tarjeta-formulario">
+                      <h3>Acceso de cliente</h3>
+                      <form id="form-acceso-cliente" novalidate>
+                        <label for="acceso-id">ID de cuenta</label>
+                        <input type="text" id="acceso-id" inputmode="numeric" autocomplete="off">
+                        <label for="acceso-pin">PIN de 4 dígitos</label>
+                        <input type="password" id="acceso-pin" inputmode="numeric" maxlength="4" autocomplete="off">
+                        <button type="submit" class="btn-ingresar w-100">Ingresar</button>
+                      </form>
+                    </article>
+                  </div>
+                  <div class="col-md-6">
+                    <article class="tarjeta-formulario">
+                      <h3>Acceso administrativo</h3>
+                      <form id="form-acceso-admin" novalidate>
+                        <label for="acceso-usuario">Usuario</label>
+                        <input type="text" id="acceso-usuario" autocomplete="off">
+                        <label for="acceso-clave">Clave</label>
+                        <input type="password" id="acceso-clave" autocomplete="off">
+                        <button type="submit" class="btn-ingresar w-100">Ingresar como administrador</button>
+                      </form>
+                    </article>
+                  </div>
+                </div>
+                <aside class="nota">
+                  <h3>Datos de prueba</h3>
+                  <ul>
+                    <li>Cliente activo: ID <strong>1</strong>, PIN <strong>1234</strong> (Ana Martínez).</li>
+                    <li>Cliente inactivo: ID <strong>3</strong>, PIN <strong>7539</strong> (María López). El acceso será rechazado.</li>
+                    <li>Administrador: usuario <strong>admin</strong>, clave <strong>admin123</strong>.</li>
+                  </ul>
+                  <p>Más que un banco, somos el comienzo de nuevas experiencias, conocimientos y oportunidades para crecer.</p>
+                </aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CLIENTE: MI CUENTA ============ -->
+      <section class="seccion" id="sec-cliente-inicio" hidden>
+        <h2>Mi cuenta</h2>
+        <div class="row g-3 g-lg-4 mb-4">
+          <div class="col-lg-7">
+            <article class="tarjeta tarjeta-saldo">
+              <p class="saludo">Hola, <strong id="dd-titular"></strong></p>
+              <h3>Saldo disponible</h3>
+              <p class="cifra cifra-grande" id="dd-saldo"></p>
+              <p class="acciones-rapidas">
+                <button type="button" class="btn-depositar" data-seccion="sec-depositar">Depositar</button>
+                <button type="button" class="btn-retirar" data-seccion="sec-retirar">Retirar</button>
+                <button type="button" class="btn-consultar" data-seccion="sec-movimientos">Consultar movimientos</button>
+              </p>
+            </article>
+          </div>
+          <div class="col-lg-5">
+            <article class="tarjeta">
+              <h3>Datos de la cuenta</h3>
+              <dl class="datos">
+                <dt>ID de cuenta</dt><dd id="dd-id"></dd>
+                <dt>Estado</dt><dd id="dd-estado"></dd>
+              </dl>
+            </article>
+          </div>
+        </div>
+        <article class="tarjeta tarjeta-oscura">
+          <h3>Últimos movimientos</h3>
+          <div class="tabla-contenedor table-responsive">
+            <table class="tabla" id="tabla-ultimos">
+              <caption>Cinco movimientos más recientes de mi cuenta</caption>
+              <thead><tr><th scope="col">ID</th><th scope="col">Tipo</th><th scope="col">Monto</th><th scope="col">Fecha</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="vacio" id="vacio-ultimos">Todavía no tiene movimientos en esta sesión.</p>
+        </article>
+      </section>
+
+      <!-- ============ CLIENTE: DEPÓSITOS ============ -->
+      <section class="seccion" id="sec-depositar" hidden>
+        <h2>Depósito de dinero</h2>
+        <article class="tarjeta tarjeta-operacion">
+          <div class="row g-0">
+            <div class="col-md-5">
+              <div class="operacion-panel operacion-deposito">
+                <span class="operacion-icono" aria-hidden="true"></span>
+                <p class="operacion-etiqueta">Saldo actual</p>
+                <p class="cifra"><strong id="saldo-deposito"></strong></p>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="operacion-form">
+                <h3>Nuevo depósito</h3>
+                <form id="form-depositar" novalidate>
+                  <label for="monto-deposito">Monto a depositar (USD)</label>
+                  <input type="text" id="monto-deposito" inputmode="decimal" autocomplete="off" placeholder="0.00">
+                  <button type="submit" class="btn-depositar w-100">Confirmar depósito</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============ CLIENTE: RETIROS ============ -->
+      <section class="seccion" id="sec-retirar" hidden>
+        <h2>Retiro de dinero</h2>
+        <article class="tarjeta tarjeta-operacion">
+          <div class="row g-0">
+            <div class="col-md-5">
+              <div class="operacion-panel operacion-retiro">
+                <span class="operacion-icono" aria-hidden="true"></span>
+                <p class="operacion-etiqueta">Saldo disponible</p>
+                <p class="cifra"><strong id="saldo-retiro"></strong></p>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="operacion-form">
+                <h3>Nuevo retiro</h3>
+                <form id="form-retirar" novalidate>
+                  <label for="monto-retiro">Monto a retirar (USD)</label>
+                  <input type="text" id="monto-retiro" inputmode="decimal" autocomplete="off" placeholder="0.00">
+                  <button type="submit" class="btn-retirar w-100">Confirmar retiro</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============ CLIENTE: MOVIMIENTOS ============ -->
+      <section class="seccion" id="sec-movimientos" hidden>
+        <h2>Historial de movimientos</h2>
+        <article class="tarjeta tarjeta-oscura">
+          <h3>Mis movimientos</h3>
+          <div class="grupo-filtros" id="filtros-cliente" role="group" aria-label="Filtrar movimientos por tipo">
+            <button type="button" class="btn-filtro activo" data-tipo="todos">Todos</button>
+            <button type="button" class="btn-filtro" data-tipo="deposito">Depósitos</button>
+            <button type="button" class="btn-filtro" data-tipo="retiro">Retiros</button>
+          </div>
+          <div class="tabla-contenedor table-responsive">
+            <table class="tabla" id="tabla-movimientos">
+              <caption>Movimientos de mi cuenta</caption>
+              <thead><tr><th scope="col">ID</th><th scope="col">Tipo</th><th scope="col">Monto</th><th scope="col">Fecha</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="vacio" id="vacio-movimientos"></p>
+        </article>
+      </section>
+
+      <!-- ============ CLIENTE: RESUMEN ============ -->
+      <section class="seccion" id="sec-resumen" hidden>
+        <h2>Resumen de operaciones</h2>
+        <div class="row g-3 g-lg-4">
+          <div class="col-sm-6 col-xl-3"><article class="tarjeta indicador indicador-deposito"><h3>Total depositado</h3><p class="cifra" id="res-depositado"></p></article></div>
+          <div class="col-sm-6 col-xl-3"><article class="tarjeta indicador indicador-retiro"><h3>Total retirado</h3><p class="cifra" id="res-retirado"></p></article></div>
+          <div class="col-sm-6 col-xl-3"><article class="tarjeta indicador indicador-cantidad"><h3>Cantidad de movimientos</h3><p class="cifra" id="res-cantidad"></p></article></div>
+          <div class="col-sm-6 col-xl-3"><article class="tarjeta indicador indicador-saldo"><h3>Saldo actual</h3><p class="cifra" id="res-saldo"></p></article></div>
+        </div>
+      </section>
+
+      <!-- ============ ADMIN: CUENTAS ============ -->
+      <section class="seccion" id="sec-admin-cuentas" hidden>
+        <h2>Cuentas registradas</h2>
+        <article class="tarjeta">
+          <h3>Consultar y administrar cuentas</h3>
+          <form class="mb-3" id="form-buscar" role="search">
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label for="buscar-cuenta" class="mt-0">Buscar por titular o ID</label>
+                <input type="search" id="buscar-cuenta" autocomplete="off" placeholder="Nombre o número de cuenta">
+              </div>
+              <div class="col-md-4">
+                <label for="filtro-estado" class="mt-0">Estado</label>
+                <select id="filtro-estado">
+                  <option value="todas">Todas</option>
+                  <option value="activa">Activas</option>
+                  <option value="inactiva">Inactivas</option>
+                </select>
+              </div>
+            </div>
+          </form>
+          <div class="tabla-contenedor table-responsive">
+            <table class="tabla" id="tabla-cuentas">
+              <caption>Cuentas del sistema</caption>
+              <thead><tr><th scope="col">ID</th><th scope="col">Titular</th><th scope="col">Estado</th><th scope="col">Saldo</th><th scope="col">Acciones</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="vacio" id="vacio-cuentas">No se encontraron cuentas con esos criterios.</p>
+        </article>
+      </section>
+
+      <!-- ============ ADMIN: REGISTRAR / MODIFICAR ============ -->
+      <section class="seccion" id="sec-admin-formulario" hidden>
+        <h2 id="titulo-formulario">Registrar nueva cuenta</h2>
+        <article class="tarjeta">
+          <h3>Datos de la cuenta</h3>
+          <form id="form-cuenta" novalidate>
+            <input type="hidden" id="cuenta-editando">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="cuenta-titular" class="mt-0">Nombre del titular</label>
+                <input type="text" id="cuenta-titular" autocomplete="off">
+              </div>
+              <div class="col-md-6">
+                <label for="cuenta-pin" class="mt-0">PIN de 4 dígitos</label>
+                <input type="text" id="cuenta-pin" inputmode="numeric" maxlength="4" autocomplete="off">
+              </div>
+              <div class="col-md-6">
+                <label for="cuenta-saldo" class="mt-0">Saldo inicial (USD)</label>
+                <input type="text" id="cuenta-saldo" inputmode="decimal" autocomplete="off" placeholder="0.00">
+              </div>
+              <div class="col-md-6">
+                <label for="cuenta-estado" class="mt-0">Estado</label>
+                <select id="cuenta-estado"><option value="activa">Activa</option><option value="inactiva">Inactiva</option></select>
+              </div>
+            </div>
+            <p class="acciones-rapidas">
+              <button type="submit" class="btn-guardar">Guardar</button>
+              <button type="button" class="btn-cancelar" id="boton-cancelar">Cancelar</button>
+            </p>
+          </form>
+        </article>
+      </section>
+
+      <!-- ============ ADMIN: HISTORIAL GENERAL ============ -->
+      <section class="seccion" id="sec-admin-historial" hidden>
+        <h2>Historial general de movimientos</h2>
+        <article class="tarjeta tarjeta-oscura">
+          <h3>Todas las cuentas</h3>
+          <div class="grupo-filtros" id="filtros-admin" role="group" aria-label="Filtrar movimientos por tipo">
+            <button type="button" class="btn-filtro activo" data-tipo="todos">Todos</button>
+            <button type="button" class="btn-filtro" data-tipo="deposito">Depósitos</button>
+            <button type="button" class="btn-filtro" data-tipo="retiro">Retiros</button>
+          </div>
+          <div class="tabla-contenedor table-responsive">
+            <table class="tabla" id="tabla-historial">
+              <caption>Movimientos registrados en esta sesión</caption>
+              <thead><tr><th scope="col">ID</th><th scope="col">Cuenta</th><th scope="col">Titular</th><th scope="col">Tipo</th><th scope="col">Monto</th><th scope="col">Fecha</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="vacio" id="vacio-historial"></p>
+        </article>
+      </section>
+
+      <!-- ============ ADMIN: TOTALES ============ -->
+      <section class="seccion" id="sec-admin-totales" hidden>
+        <h2>Totales del sistema</h2>
+        <div class="row g-3 g-lg-4">
+          <div class="col-sm-6 col-xl-4"><article class="tarjeta indicador indicador-cuentas"><h3>Cuentas registradas</h3><p class="cifra" id="total-cuentas"></p></article></div>
+          <div class="col-sm-6 col-xl-4"><article class="tarjeta indicador indicador-activas"><h3>Cuentas activas</h3><p class="cifra" id="total-activas"></p></article></div>
+          <div class="col-sm-6 col-xl-4"><article class="tarjeta indicador indicador-inactivas"><h3>Cuentas inactivas</h3><p class="cifra" id="total-inactivas"></p></article></div>
+          <div class="col-sm-6 col-xl-4"><article class="tarjeta indicador indicador-deposito"><h3>Total depositado</h3><p class="cifra" id="total-depositado"></p></article></div>
+          <div class="col-sm-6 col-xl-4"><article class="tarjeta indicador indicador-retiro"><h3>Total retirado</h3><p class="cifra" id="total-retirado"></p></article></div>
+          <div class="col-sm-6 col-xl-4"><article class="tarjeta indicador indicador-cantidad"><h3>Movimientos registrados</h3><p class="cifra" id="total-movimientos"></p></article></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="pie">
+    <img class="escudo-pie" src="/img/escudo.png" alt="Escudo de la Universidad de Oriente (UNIVO)">
+    <p>Proyecto de Programación Estructurada (UNIVO)</p>
+  </footer>
+
+  <!-- Contenedor de avisos (toasts) -->
+  <div class="avisos" id="avisos" role="status" aria-live="polite"></div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
