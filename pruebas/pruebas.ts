@@ -1,4 +1,4 @@
-// ===== Pruebas de consola de Tu Cajero Virtual =====
+// PRUENAS EN CONSOLA, PARA VERIFICAR QUE EL SISTEMA CUMPLE CORRECTAMENTE SUS ACCIONES
 // Se ejecutan en la terminal con:  npm run prueba
 // Usan sus propias cuentas de prueba, así no dependen del archivo cuentas.json.
 
