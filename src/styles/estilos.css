@@ -110,6 +110,24 @@ tr:has(.etiqueta-activa) .btn-estado:hover{background:#FFE4E6;border-color:#E11D
 .btn-ingresar::before{--icono:var(--i-flecha)}
 .btn-editar::before{--icono:var(--i-editar)}
 .btn-estado::before{--icono:var(--i-power)}
+
+/* Botón para eliminar cuentas */
+.btn-eliminar {
+  min-height: 38px;
+  padding: .35rem .9rem;
+  font-size: .83rem;
+  background: #FFF1F2;
+  color: #9F1239;
+  border: 1px solid #FECDD3;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-eliminar:hover {
+  background: #FFE4E6;
+  border-color: #E11D48;
+}
+
 .btn-guardar::before{--icono:var(--i-check)}
 .btn-cancelar::before{--icono:var(--i-cerrar)}
 

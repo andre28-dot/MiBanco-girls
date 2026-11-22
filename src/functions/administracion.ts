@@ -91,3 +91,28 @@ export function cambiarEstadoCuenta(cuentaId: number, nuevoEstado: EstadoCuenta)
   cuenta.estado = nuevoEstado;
   return { exito: true, mensaje: `La cuenta ${cuenta.id} ahora está ${nuevoEstado}.` };
 }
+
+// Elimina una cuenta del arreglo (solo administrador).
+export function eliminarCuenta(cuentaId: number): ResultadoOperacion {
+  if (!esAdministrador()) {
+    return SIN_PERMISO;
+  }
+
+  // Buscamos la posición de la cuenta que se quiere eliminar.
+  const indice = cuentas.findIndex(function (cuenta) {
+    return cuenta.id === cuentaId;
+  });
+
+  if (indice === -1) {
+    return { exito: false, mensaje: "La cuenta no existe." };
+  }
+
+  // Eliminamos la cuenta de esa posición.
+  cuentas.splice(indice, 1);
+
+  return {
+    exito: true,
+    mensaje: `La cuenta ${cuentaId} fue eliminada correctamente.`,
+  };
+}
+

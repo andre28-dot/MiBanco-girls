@@ -1,4 +1,5 @@
-// ===== Panel del administrador: cuentas, registro, historial general y totales =====
+
+ // ===== Panel del administrador: cuentas, registro, historial general y totales =====
 
 // Importa los tipos que se utilizan para trabajar con cuentas, estados, filtros y movimientos.
 import { Cuenta, EstadoCuenta, FiltroTipo, Movimiento, ResultadoOperacion } from "../types/tipos.js";
@@ -15,8 +16,8 @@ import { filtrarMovimientosPorTipo, obtenerTodosLosMovimientos } from "../functi
 // Importa la función que calcula los totales generales del banco.
 import { calcularResumenGeneral } from "../functions/resumen.js";
 
-// Importa las funciones para cambiar el estado, modificar y registrar cuentas.
-import { cambiarEstadoCuenta, modificarCuenta, registrarCuenta } from "../functions/administracion.js";
+// Importa las funciones para cambiar el estado, modificar, registrar y eliminar cuentas.
+import { cambiarEstadoCuenta, modificarCuenta, registrarCuenta, eliminarCuenta } from "../functions/administracion.js";
 
 // Importa la función que permite cambiar de una sección a otra.
 import { mostrarSeccion } from "./navegacion.js";
@@ -34,7 +35,7 @@ let filtroTipoActual: FiltroTipo = "todos";
 
 // ---------- Tabla de cuentas ----------
 
-// Crea una fila (<tr>) para una cuenta, con sus botones "Editar" y "Activar/Desactivar".
+// Crea una fila (<tr>) para una cuenta, con sus botones de acciones.
 // Recibe los datos de una cuenta y devuelve una fila para la tabla.
 function crearFilaCuenta(cuenta: Cuenta): HTMLTableRowElement {
   // Crea una nueva fila para colocar la información de la cuenta.
@@ -51,12 +52,12 @@ function crearFilaCuenta(cuenta: Cuenta): HTMLTableRowElement {
   const celdaEstado = document.createElement("td");
 
   // Coloca en la celda la etiqueta visual que indica si la cuenta está activa o inactiva.
-  celdaEstado.innerHTML = etiquetaEstado(cuenta.estado); // devuelve el <span> de color
+  celdaEstado.innerHTML = etiquetaEstado(cuenta.estado);
 
   // Crea una celda para mostrar el saldo con formato de dinero.
   const celdaSaldo = crearCelda(dinero(cuenta.saldo));
 
-  // Botón "Editar": al hacer clic se llama a entrarModoEdicion enviándole ESTA cuenta
+  // Botón "Editar"
   // Crea el botón que permitirá modificar los datos de la cuenta.
   const botonEditar = document.createElement("button");
 
@@ -75,7 +76,7 @@ function crearFilaCuenta(cuenta: Cuenta): HTMLTableRowElement {
     entrarModoEdicion(cuenta);
   });
 
-  // Botón de estado: dice "Desactivar" si la cuenta está activa y "Activar" si no
+  // Botón de estado: dice "Desactivar" si la cuenta está activa y "Activar" si no.
   // Crea el botón que permitirá cambiar el estado de la cuenta.
   const botonEstado = document.createElement("button");
 
@@ -100,15 +101,32 @@ function crearFilaCuenta(cuenta: Cuenta): HTMLTableRowElement {
     alPulsarCambiarEstado(cuenta);
   });
 
-  // Celda de acciones con los dos botones (el " " deja un espacio entre ellos)
-  // Crea una celda para colocar los botones de Editar y Activar/Desactivar.
+  // Botón para eliminar la cuenta.
+  const botonEliminar = document.createElement("button");
+  botonEliminar.type = "button";
+  botonEliminar.className = "btn-eliminar";
+  botonEliminar.textContent = "Eliminar";
+
+  // Configura la acción que se ejecutará al presionar Eliminar.
+  botonEliminar.addEventListener("click", function () {
+    alPulsarEliminarCuenta(cuenta);
+  });
+
+  // Celda de acciones con los tres botones.
+  // Crea una celda para colocar los botones de Editar, Activar/Desactivar y Eliminar.
   const celdaAcciones = document.createElement("td");
 
   // Asigna una clase para organizar los botones con CSS.
   celdaAcciones.className = "acciones";
 
-  // Agrega los dos botones a la misma celda y deja un espacio entre ellos.
-  celdaAcciones.append(botonEditar, " ", botonEstado);
+  // Agrega los tres botones a la misma celda y deja un espacio entre ellos.
+  celdaAcciones.append(
+    botonEditar,
+    " ",
+    botonEstado,
+    " ",
+    botonEliminar
+  );
 
   // Agrega todas las celdas a la fila de la cuenta.
   fila.append(celdaId, celdaTitular, celdaEstado, celdaSaldo, celdaAcciones);
@@ -129,7 +147,6 @@ function dibujarCuentas(): void {
   // Convierte la opción seleccionada en un filtro de estado válido.
   const filtroEstado = leerFiltroEstado(estadoElegido);
 
-  // Primero se busca por nombre o ID y después se filtra por estado
   // Busca las cuentas que coinciden con el texto escrito.
   const encontradas = buscarCuentas(obtenerCuentas(), textoBuscado);
 
@@ -139,7 +156,7 @@ function dibujarCuentas(): void {
   // Obtiene el cuerpo de la tabla donde se mostrarán las cuentas.
   const cuerpo = cuerpoDeTabla("tabla-cuentas");
 
-  // borra las filas anteriores
+  // Borra las filas anteriores.
   cuerpo.innerHTML = "";
 
   // Recorre todas las cuentas que pasaron los filtros.
@@ -148,7 +165,6 @@ function dibujarCuentas(): void {
     cuerpo.appendChild(crearFilaCuenta(cuenta));
   }
 
-  // Si no hay resultados se muestra el mensaje
   // Oculta el mensaje cuando hay cuentas y lo muestra cuando no hay resultados.
   el("vacio-cuentas").hidden = visibles.length > 0;
 }
@@ -160,8 +176,7 @@ function crearFilaHistorial(movimiento: Movimiento): HTMLTableRowElement {
   // Crea una nueva fila para colocar los datos del movimiento.
   const fila = document.createElement("tr");
 
-  // El titular se busca con el ID de cuenta del movimiento
-  // Coloca un guion mientras se comprueba si existe la cuenta.
+  // El titular se busca con el ID de cuenta del movimiento.
   let nombreTitular = "—";
 
   // Busca la cuenta a la que pertenece el movimiento.
@@ -222,7 +237,6 @@ function dibujarHistorial(): void {
   // Aplica el filtro seleccionado para mostrar solo los movimientos correspondientes.
   const visibles = filtrarMovimientosPorTipo(todos, filtroTipoActual);
 
-  // Se recorre de atrás hacia adelante para mostrar primero el movimiento más reciente
   // Obtiene el cuerpo de la tabla del historial.
   const cuerpo = cuerpoDeTabla("tabla-historial");
 
@@ -322,7 +336,6 @@ function salirModoEdicion(): void {
   // Limpia todos los campos del formulario.
   obtenerFormulario("form-cuenta").reset();
 
-  // campo oculto: vacío = cuenta nueva
   // Deja vacío el campo que guarda el ID de la cuenta que se está editando.
   obtenerEntrada("cuenta-editando").value = "";
 
@@ -339,7 +352,6 @@ function salirModoEdicion(): void {
 // Carga los datos de una cuenta en el formulario para MODIFICARLA.
 // Solo se pueden cambiar titular y PIN; el saldo y el estado se muestran bloqueados.
 function entrarModoEdicion(cuenta: Cuenta): void {
-  // campo oculto: guarda qué cuenta se edita
   // Guarda el ID de la cuenta que se va a modificar.
   obtenerEntrada("cuenta-editando").value = String(cuenta.id);
 
@@ -395,10 +407,39 @@ function alPulsarCambiarEstado(cuenta: Cuenta): void {
   dibujarPanelAdmin();
 }
 
+// Botón "Eliminar" de una fila: elimina la cuenta seleccionada.
+function alPulsarEliminarCuenta(cuenta: Cuenta): void {
+  // Pregunta si el administrador realmente desea eliminar la cuenta.
+  const confirmar = window.confirm(
+    `¿Deseas eliminar la cuenta ${cuenta.id} de ${cuenta.titular}?`
+  );
+
+  // Si el administrador cancela, no se realiza ningún cambio.
+  if (!confirmar) {
+    return;
+  }
+
+  // Llama a la función que elimina la cuenta del arreglo.
+  const resultado = eliminarCuenta(cuenta.id);
+
+  // Muestra el mensaje que devuelve la operación.
+  mostrarAviso(resultado.mensaje, resultado.exito);
+
+  // Si se eliminó correctamente, actualiza las tablas y los totales.
+  if (resultado.exito) {
+    // Si esa cuenta estaba abierta en el formulario, limpia el formulario.
+    if (obtenerEntrada("cuenta-editando").value === String(cuenta.id)) {
+      salirModoEdicion();
+    }
+
+    // Actualiza la información que aparece en pantalla.
+    dibujarPanelAdmin();
+  }
+}
+
 // Botón "Guardar" del formulario: registra una cuenta nueva o modifica una existente.
 // Se ejecuta cuando el administrador envía el formulario.
 function alEnviarFormularioCuenta(evento: Event): void {
-  // evita que el formulario recargue la página
   // Evita que el navegador recargue la página al enviar el formulario.
   evento.preventDefault();
 
@@ -416,7 +457,6 @@ function alEnviarFormularioCuenta(evento: Event): void {
 
   // Comprueba si el formulario se está utilizando para registrar una cuenta nueva.
   if (idEnEdicion === "") {
-    // Campo oculto vacío: es una cuenta nueva
     // Convierte el saldo inicial escrito en el formulario a un número.
     const saldoInicial = textoANumero(obtenerEntrada("cuenta-saldo").value);
 
@@ -432,7 +472,6 @@ function alEnviarFormularioCuenta(evento: Event): void {
     // Registra la cuenta nueva con el titular, PIN, saldo y estado indicados.
     resultado = registrarCuenta(titular, pin, saldoInicial, estado);
   } else {
-    // El campo oculto tiene un ID: se está modificando esa cuenta
     // Modifica la cuenta existente utilizando su ID, titular y PIN.
     resultado = modificarCuenta(Number(idEnEdicion), titular, pin);
   }
@@ -492,42 +531,38 @@ function alPulsarFiltro(boton: HTMLElement): void {
 
 // Conecta cada elemento con su evento. Se llama una sola vez al iniciar la aplicación.
 export function configurarPanelAdmin(): void {
-  // Búsqueda y filtro de la tabla de cuentas
+  // Búsqueda y filtro de la tabla de cuentas.
   // Evita que el formulario de búsqueda se envíe y recargue la página.
   el("form-buscar").addEventListener("submit", evitarEnvio);
 
-  // cada letra escrita
   // Actualiza la tabla cada vez que el administrador escribe algo en la búsqueda.
-  el("buscar-cuenta").addEventListener("input", dibujarCuentas);   // cada letra escrita
+  el("buscar-cuenta").addEventListener("input", dibujarCuentas);
 
-  // al cambiar la opción
   // Actualiza la tabla cuando se selecciona otro estado en el filtro.
-  el("filtro-estado").addEventListener("change", dibujarCuentas);  // al cambiar la opción
+  el("filtro-estado").addEventListener("change", dibujarCuentas);
 
-  // Formulario de registro / modificación
+  // Formulario de registro / modificación.
   // Conecta el formulario con la función que registra o modifica las cuentas.
   el("form-cuenta").addEventListener("submit", alEnviarFormularioCuenta);
 
   // Conecta el botón Cancelar con la función que limpia el formulario.
   el("boton-cancelar").addEventListener("click", alPulsarCancelar);
 
-  // Botones de filtro del historial (uno por uno)
+  // Botones de filtro del historial.
   // Obtiene todos los botones que se encuentran dentro del grupo de filtros.
   const botonesFiltro = el("filtros-admin").querySelectorAll<HTMLElement>("button");
 
   // Recorre cada botón para configurar su evento.
   for (const boton of botonesFiltro) {
-
     // Agrega un evento para detectar cuando se presione el botón.
     boton.addEventListener("click", function () {
-
       // Envía el botón seleccionado a la función que aplica el filtro.
       alPulsarFiltro(boton);
     });
   }
 
-  // Los botones "Editar" y "Activar/Desactivar" de cada fila se conectan
-  // en crearFilaCuenta, justo cuando se crean.
+  // Los botones "Editar", "Activar/Desactivar" y "Eliminar" de cada fila
+  // se conectan en crearFilaCuenta, justo cuando se crean.
 }
 
 // ---------- Limpiar ----------
@@ -551,7 +586,6 @@ export function limpiarPanelAdmin(): void {
 
   // Recorre cada identificador de los elementos que muestran los totales.
   for (const id of idsDeTotales) {
-
     // Borra el texto que se estaba mostrando en cada elemento.
     el(id).textContent = "";
   }
