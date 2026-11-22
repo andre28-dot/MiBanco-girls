@@ -1,8 +1,12 @@
 // ===== Retiros =====
+// Importa el tipo de respuesta estándar de las operaciones
 import { ResultadoOperacion } from "../types/tipos.js";
+// Importa las utilidades de validación, redondeo y conversión a centavos
 import { validarOperacion, redondearADosDecimales, aCentavos } from "./validaciones.js";
+// Importa la función para registrar el movimiento en el historial
 import { registrarMovimiento } from "./historial.js";
 
+// Procesa el retiro de un monto específico desde una cuenta bancaria
 export function retirar(cuentaId: number, monto: number): ResultadoOperacion {
   // 1. Validar cuenta y monto
   const validacion = validarOperacion(cuentaId, monto);
@@ -10,6 +14,7 @@ export function retirar(cuentaId: number, monto: number): ResultadoOperacion {
     return { exito: false, mensaje: validacion.mensaje };
   }
 
+  // Obtiene la cuenta ya validada
   const cuenta = validacion.cuenta;
 
   // 2. Verificar fondos. Retirar el saldo exacto SÍ está permitido (solo se rechaza si es mayor).
@@ -26,6 +31,7 @@ export function retirar(cuentaId: number, monto: number): ResultadoOperacion {
   // 4. Registrar exactamente un movimiento
   registrarMovimiento(cuenta.id, "retiro", monto);
 
+  // Retorna confirmación exitosa con el monto retirado y el saldo final
   return {
     exito: true,
     mensaje: `Retiro de $${monto.toFixed(2)} realizado. Nuevo saldo: $${cuenta.saldo.toFixed(2)}.`,
