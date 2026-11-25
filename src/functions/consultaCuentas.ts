@@ -1,4 +1,4 @@
-// ===== Consulta de cuentas =====
+// ===== Consulta de cuentas ==
 import { Cuenta } from "../types/tipos.js";
 import { cuentas, sesion } from "../services/estado.js";
 import { esAdministrador, puedeAccederACuenta } from "./permisos.js";

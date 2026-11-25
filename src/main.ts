@@ -1,4 +1,8 @@
 // ===== Punto de entrada =====
+
+//el main.ts es el punto de entrada de la aplicación, donde se inicializa todo el 
+// flujo de la aplicación y se configuran los eventos y vistas principales
+
 // Importa la función que carga las cuentas iniciales desde el archivo JSON
 import { cargarCuentas } from "./services/cargaCuentas.js";
 // Importa la función que configura la navegación entre vistas o secciones

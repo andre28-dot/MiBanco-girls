@@ -1,4 +1,6 @@
-// ===== Panel del cliente: su cuenta, depósitos, retiros, movimientos y resumen =====
+// ===== Panel del cliente: su cuenta, depósitos, retiros, movimientos y resumen =
+
+//creamos un panel de cliente que permite a los usuarios ver y gestionar su cuenta bancaria
 
 // Importa los tipos que se utilizan para los filtros, movimientos y resultados de las operaciones.
 import { FiltroTipo, Movimiento, ResultadoOperacion } from "../types/tipos.js";

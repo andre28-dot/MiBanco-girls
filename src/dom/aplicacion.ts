@@ -1,5 +1,11 @@
 // ===== Controla qué pantalla se ve según la sesión =====
 
+//en aplicacion.ts se controla la pantalla que se muestra según el estado de la sesión del usuario.
+//  Se importan funciones y tipos necesarios para manejar la sesión, acceder a cuentas y mostrar u ocultar elementos en 
+// la interfaz de usuario. La función principal, actualizarSegunSesion, ajusta la visibilidad de menús y secciones según el
+//  rol del usuario (cliente, administrador o ninguno). Además, se proporciona una función para cerrar la sesión y limpiar la 
+// interfaz, asegurando que los datos de la sesión se borren correctamente y que se muestre un mensaje de confirmación al usuario.
+
 // Importa la información de la sesión actual, como el rol y el ID de la cuenta.
 import { sesion } from "../services/estado.js";
 

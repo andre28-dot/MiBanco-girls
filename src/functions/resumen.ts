@@ -1,4 +1,8 @@
-// ===== Resumen de movimientos =====
+// ===== Resumen de movimientos =
+
+//creamos un resumen de movimientos que calcula los totales de depósitos y retiros para una cuenta específica
+//  o para todas las cuentas del banco.
+
 // Importa los tipos de datos para movimientos y resúmenes
 import { Movimiento, ResumenMovimientos } from "../types/tipos.js";
 // Importa las funciones que consultan los movimientos según la cuenta o permisos del usuario

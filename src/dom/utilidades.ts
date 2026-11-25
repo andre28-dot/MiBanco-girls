@@ -1,4 +1,12 @@
-// ===== Funciones pequeñas que usan todas las pantallas =====
+// ===== Funciones pequeñas que usan todas las pantallas =
+
+//en utilidades.ts se encuentran funciones auxiliares que son utilizadas en todas las pantallas de la aplicación.
+//  Estas funciones incluyen la búsqueda de elementos HTML por su id, la obtención de campos de entrada, listas desplegables 
+// y formularios, así como la creación de celdas de tabla y la visualización de avisos emergentes. Además, se proporcionan funciones 
+// para formatear dinero, escapar texto para evitar la ejecución de HTML, convertir texto a número y manejar filtros de estado y tipo 
+// para cuentas y movimientos. Estas utilidades facilitan la interacción con el DOM y mejoran la experiencia del usuario al proporcionar
+//  mensajes claros y formatos consistentes en toda la aplicación.
+
 // Importamos los tipos que se utilizan para manejar los filtros.
 import { FiltroEstado, FiltroTipo } from "../types/tipos.js";
 

@@ -1,4 +1,9 @@
-// ===== Pantalla de acceso (cliente y administrador) =====
+// ===== Pantalla de acceso (cliente y administrador) =
+
+//creamos la pantalla de acceso para que los usuarios puedan iniciar sesión como clientes o administradores. 
+// Esta pantalla incluye formularios para ingresar el ID y PIN del cliente, así como el usuario y clave del administrador. 
+// Se proporcionan funciones para limpiar los formularios, configurar los eventos de envío y manejar el inicio de sesión, 
+// mostrando mensajes de éxito o error según corresponda.
 
 // Importa las funciones que permiten iniciar sesión como cliente o administrador.
 import { iniciarSesionCliente, iniciarSesionAdministrador } from "../functions/acceso.js";

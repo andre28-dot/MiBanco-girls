@@ -3,6 +3,7 @@
 import { sesion } from "../services/estado.js";
 
 // Indica si hay un cliente con una cuenta asociada en la sesión.
+//export function es para indicar si la sesión pertenece a un cliente con cuenta asociada.
 export function esCliente(): boolean {
   return sesion.rol === "cliente" && sesion.cuentaId !== null;
 }

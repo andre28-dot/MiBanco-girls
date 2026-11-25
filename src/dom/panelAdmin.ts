@@ -1,5 +1,9 @@
 
- // ===== Panel del administrador: cuentas, registro, historial general y totales =====
+ // ===== Panel del administrador: cuentas, registro, historial general y totales ==
+
+ //Creamos un panel de administración para que el administrador pueda gestionar las cuentas, ver el historial general y los totales del banco.
+ //  Este panel permite registrar nuevas cuentas, modificar las existentes, cambiar su estado y eliminar cuentas. Además, muestra un historial completo
+ //  de movimientos y calcula los totales generales del banco.
 
 // Importa los tipos que se utilizan para trabajar con cuentas, estados, filtros y movimientos.
 import { Cuenta, EstadoCuenta, FiltroTipo, Movimiento, ResultadoOperacion } from "../types/tipos.js";

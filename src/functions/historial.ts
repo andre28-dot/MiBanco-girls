@@ -1,6 +1,10 @@
 // ===== Historial de movimientos =====
+
+//importa los tipos y servicios necesarios para trabajar con movimientos y permisos.
 import { Movimiento, TipoMovimiento, FiltroTipo } from "../types/tipos.js";
+//importa los servicios que contienen el estado compartido de la aplicación.
 import { movimientos } from "../services/estado.js";
+//importa las funciones que verifican los permisos del usuario actual.
 import { esAdministrador, puedeAccederACuenta } from "./permisos.js";
 
 // El id nuevo es el mayor id existente + 1 (o 1 si todavía no hay movimientos).

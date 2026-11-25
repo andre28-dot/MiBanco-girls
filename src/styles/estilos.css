@@ -1,5 +1,9 @@
 /* ===== Tu Cajero Virtual · estilo fintech (violeta / lila / azul noche) =====
    Los iconos están dibujados con CSS (máscaras SVG), sin librerías externas. */
+
+   /* ===== Variables CSS, para un estilo consistente ===== */
+
+   /*este .root define variables CSS para los iconos y colores del sitio, que se pueden reutilizar en todo el CSS*/
 :root{
   --i-inicio:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPSdibGFjaycgc3Ryb2tlLXdpZHRoPScyJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnPjxwYXRoIGQ9J00zIDExLjUgMTIgNGw5IDcuNScvPjxwYXRoIGQ9J001IDEwdjEwaDV2LTZoNHY2aDVWMTAnLz48L3N2Zz4=");
   --i-usuarios:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPSdibGFjaycgc3Ryb2tlLXdpZHRoPScyJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnPjxjaXJjbGUgY3g9JzknIGN5PSc4JyByPSczLjUnLz48cGF0aCBkPSdNMi41IDIwYTYuNSA2LjUgMCAwIDEgMTMgMCcvPjxwYXRoIGQ9J00xNiA0LjZhMy41IDMuNSAwIDAgMSAwIDYuOE0xOC41IDE0LjJBNi41IDYuNSAwIDAgMSAyMS41IDIwJy8+PC9zdmc+");
@@ -24,6 +28,8 @@
   --i-buscar:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjNkQzREU4JyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCc+PGNpcmNsZSBjeD0nMTEnIGN5PScxMScgcj0nNycvPjxwYXRoIGQ9J20yMCAyMC0zLjUtMy41Jy8+PC9zdmc+");
   --i-flechaabajo:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjNEMyQkI4JyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCc+PHBhdGggZD0nbTYgOSA2IDYgNi02Jy8+PC9zdmc+");
 }
+
+/* =Colores y tipografía, para todo el sitio ===== */
 :root{
   --noche:#14123A; --noche-2:#1F1B52; --violeta:#6D3DE8; --violeta-2:#5B3FD6; --morado:#4C2BB8;
   --lila:#F3F1FC; --lila-2:#E9E5FA; --lila-3:#DDD6F7;
@@ -33,7 +39,7 @@
   --fuente:'Plus Jakarta Sans','Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
 
-/* ===== Base ===== */
+/* ===== Base para todo el sitio ===== */
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
 body{margin:0;min-height:100vh;display:flex;flex-direction:column;font-family:var(--fuente);color:var(--texto);
