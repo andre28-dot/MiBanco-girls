@@ -2,6 +2,11 @@
 // Se ejecutan en la terminal con:  npm run prueba
 // Usan sus propias cuentas de prueba, así no dependen del archivo cuentas.json.
 
+
+//este archivo pruebas.ts contiene un conjunto de pruebas automatizadas para verificar el correcto funcionamiento del
+//  sistema de cajero virtual. Las pruebas se ejecutan en la consola y utilizan cuentas de prueba independientes
+//  del archivo cuentas.json para garantizar que los resultados sean consistentes y reproducibles.
+
 // Importa el tipo de las cuentas y el tipo que devuelve el resultado de una operación.
 import { Cuenta, ResultadoOperacion } from "../src/types/tipos.js";
 
