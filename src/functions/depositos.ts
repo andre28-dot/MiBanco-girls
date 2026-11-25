@@ -3,6 +3,7 @@ import { ResultadoOperacion } from "../types/tipos.js";
 import { validarOperacion, redondearADosDecimales } from "./validaciones.js";
 import { registrarMovimiento } from "./historial.js";
 
+// Valida un depósito y, si todo está correcto, actualiza el saldo y el historial.
 export function depositar(cuentaId: number, monto: number): ResultadoOperacion {
   // 1. Validar cuenta y monto. Si falla, se sale SIN cambiar nada.
   const validacion = validarOperacion(cuentaId, monto);
@@ -17,6 +18,7 @@ export function depositar(cuentaId: number, monto: number): ResultadoOperacion {
   // 3. Registrar exactamente un movimiento
   registrarMovimiento(cuenta.id, "deposito", monto);
 
+  // Devuelve el resultado exitoso con el monto depositado y el saldo actualizado.
   return {
     exito: true,
     mensaje: `Depósito de $${monto.toFixed(2)} realizado. Nuevo saldo: $${cuenta.saldo.toFixed(2)}.`,

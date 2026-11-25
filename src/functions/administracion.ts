@@ -21,6 +21,7 @@ function generarIdCuenta(): number {
   return mayor + 1;
 }
 
+// Registra una cuenta nueva después de validar sus datos.
 export function registrarCuenta(
   titular: string,
   pin: string,
@@ -60,7 +61,6 @@ export function modificarCuenta(cuentaId: number, titular: string, pin: string):
   if (cuenta === undefined) {
     return { exito: false, mensaje: "La cuenta no existe." };
   }
-
   const revisionTitular = validarTitular(titular);
   if (!revisionTitular.exito) {
     return revisionTitular;
@@ -72,22 +72,29 @@ export function modificarCuenta(cuentaId: number, titular: string, pin: string):
     }
     cuenta.pin = pin.trim();
   }
-
   cuenta.titular = titular.trim();
   return { exito: true, mensaje: `Cuenta ${cuenta.id} actualizada.` };
 }
 
+// Cambia el estado de una cuenta entre activa e inactiva.
 export function cambiarEstadoCuenta(cuentaId: number, nuevoEstado: EstadoCuenta): ResultadoOperacion {
+  // Comprueba que solo el administrador pueda realizar esta acción.
   if (!esAdministrador()) {
     return SIN_PERMISO;
   }
+
+  // Busca la cuenta que debe cambiar de estado.
   const cuenta = buscarCuentaPorId(cuentaId);
   if (cuenta === undefined) {
     return { exito: false, mensaje: "La cuenta no existe." };
   }
+
+  // Evita realizar el cambio si ya tiene el estado solicitado.
   if (cuenta.estado === nuevoEstado) {
     return { exito: false, mensaje: `La cuenta ya está ${nuevoEstado}.` };
   }
+
+  // Guarda el nuevo estado y muestra un mensaje de confirmación.
   cuenta.estado = nuevoEstado;
   return { exito: true, mensaje: `La cuenta ${cuenta.id} ahora está ${nuevoEstado}.` };
 }

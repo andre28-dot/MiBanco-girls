@@ -9,6 +9,7 @@ import { buscarCuentaPorId } from "./consultaCuentas.js";
 const USUARIO_ADMIN = "admin";
 const CLAVE_ADMIN = "admin123";
 
+// Inicia la sesión de una cuenta después de validar su ID, PIN y estado.
 export function iniciarSesionCliente(cuentaId: number, pin: string): ResultadoOperacion {
   // 1. Campos vacíos
   if (Number.isNaN(cuentaId) || pin.trim() === "") {
@@ -32,6 +33,7 @@ export function iniciarSesionCliente(cuentaId: number, pin: string): ResultadoOp
   return { exito: true, mensaje: `Bienvenido(a), ${cuenta.titular}.` };
 }
 
+// Inicia la sesión de administrador si el usuario y la clave coinciden.
 export function iniciarSesionAdministrador(usuario: string, clave: string): ResultadoOperacion {
   if (usuario.trim() === "" || clave === "") {
     return { exito: false, mensaje: "Escriba el usuario y la clave del administrador." };
@@ -45,6 +47,7 @@ export function iniciarSesionAdministrador(usuario: string, clave: string): Resu
   return { exito: true, mensaje: "Sesión de administrador iniciada." };
 }
 
+// Cierra la sesión actual eliminando el rol y la cuenta seleccionados.
 export function cerrarSesion(): void {
   sesion.rol = null;
   sesion.cuentaId = null;
