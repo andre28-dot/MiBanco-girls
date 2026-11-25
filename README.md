@@ -82,4 +82,7 @@ npm run dev
 
 Después de ejecutar el comando anterior, aparecerá una dirección local en la terminal. Ábrela en tu navegador para utilizar Tu Cajero Virtual.
 
+Documento breve con capturas de las operaciones principales, el CRUD, una validación y una búsqueda sin resultados.
+Link: https://docs.google.com/document/d/1lOKDEEf-NDHKeh5rfcUsJL4hfUCKPQZFbJgAQlt-tuA/edit?usp=sharing
+
 Proyecto académico – 2026
